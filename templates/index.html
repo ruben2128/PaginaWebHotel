@@ -1,0 +1,37 @@
+{% extends 'padre.html' %}
+
+{% block central %}
+<main>
+    <article class="partecentral">
+        <h2>{{ mensaje }}</h2>
+        
+        {% if errores %}
+            <div class="errores">
+                <ul>
+                    {% for error in errores %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        <div id="descripcion">
+            <h2>DESCRIPCION</h2>
+            <p>Descubra la serenidad y el encanto rústico en Hotel Retiro Campestre, su escapada perfecta en la tranquilidad del campo. Rodeado de naturaleza prístina, nuestro hotel es un santuario para aquellos que buscan paz y rejuvenecimiento lejos del bullicio de la ciudad.
+                Cada habitación en Retiro Campestre refleja la belleza rústica del entorno, con toques de modernidad para garantizar su comodidad. Despierte con el canto de los pájaros y disfrute de las impresionantes vistas de los paisajes verdes desde su ventana.
+                Sumérjase en nuestra piscina al aire libre, perfecta para refrescarse en un día soleado, o manténgase activo en nuestro gimnasio completamente equipado. Deléitese con los sabores locales en nuestro restaurante, donde cada plato es una celebración de los productos frescos de la región.
+                En Hotel Retiro Campestre, nos dedicamos a crear una experiencia auténtica y memorable para usted. Ya sea que desee explorar los senderos cercanos, relajarse junto a la piscina o simplemente disfrutar de la tranquilidad, estamos aquí para hacer que su estancia sea excepcional.
+                Visite RetiroCampestre.com para reservar su habitación y comience a planificar su retiro rural perfecto, donde la naturaleza se encuentra con el confort.
+            </p>
+        </div>
+        
+        <h2>IMAGENES</h2>
+        <div id="imagenes">
+            <a href="index.php"><img src="hotel.jpg" alt="Hotel1"><p>Vista del hotel</p></a>
+            <a href="habitaciones.php"><img src="hab1.jpg" alt="Habitaciones"><p>Habitaciones</p></a>
+            <a href="servicios.php"><img src="restaurante.jpeg" alt="Restaurante"><p>Restaurante</p></a>
+            <a href="servicios.php"><img src="gimnasio.jpeg" alt="Gimnasio"><p>Gimnasio</p></a>
+        </div>
+    </article>
+</main>
+{% endblock %}

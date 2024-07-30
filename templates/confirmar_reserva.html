@@ -1,0 +1,17 @@
+{% extends "padre.html" %}
+
+{% block central %}
+    <h1>Confirmar Reserva</h1>
+    <p>Número de Personas: {{ reserva.numero_personas }}</p>
+    <p>Día de Entrada: {{ reserva.dia_entrada }}</p>
+    <p>Día de Salida: {{ reserva.dia_salida }}</p>
+    <p>Comentarios: {{ reserva.comentarios }}</p>
+    <p>Número de Habitación: {{ reserva.numero_habitacion }}</p>
+    <p>Precio por Noche: {{ reserva.precio_noche }}</p>
+
+    <form action="confirmar_reserva.php" method="post">
+        <input type="hidden" name="reserva_id" value="{{ reserva_id }}">
+        <input type="submit" name="accion" value="Confirmar">
+        <input type="submit" name="accion" value="Cancelar">
+    </form>
+{% endblock %}

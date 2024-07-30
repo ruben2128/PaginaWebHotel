@@ -1,0 +1,90 @@
+{% extends "padre.html" %}
+
+{% block central %}
+
+    {% if rol == 'recepcionista' or rol == 'cliente' %}
+
+        <h1>Listado de Reservas</h1>
+
+        {% if mensaje_exito %}
+            <div class="alert alert-success">
+                <p>{{ mensaje_exito }}</p>
+            </div>
+        {% endif %}
+
+        <form action="listado_reservas.php" method="post">
+            <label for="comentarios_filtro">Filtrar por comentarios:</label>
+            <input type="text" id="comentarios_filtro" name="comentarios_filtro" value="{{ comentarios_filtro }}">
+            <br>
+            <label for="fecha_inicio_filtro">Fecha de entrada (desde):</label>
+            <input type="date" id="fecha_inicio_filtro" name="fecha_inicio_filtro" value="{{ fecha_inicio_filtro }}">
+            <br>
+            <label for="fecha_fin_filtro">Fecha de entrada (hasta):</label>
+            <input type="date" id="fecha_fin_filtro" name="fecha_fin_filtro" value="{{ fecha_fin_filtro }}">
+            <br>
+            <label for="ordenar_por">Ordenar por:</label>
+            <select id="ordenar_por" name="ordenar_por">
+                <option value="antiguedad" {% if ordenar_por == 'antiguedad' %}selected{% endif %}>Antigüedad</option>
+                <option value="dias" {% if ordenar_por == 'dias' %}selected{% endif %}>Número de días</option>
+            </select>
+            <br>
+            <label for="orden">Orden:</label>
+            <select id="orden" name="orden">
+                <option value="asc" {% if orden == 'asc' %}selected{% endif %}>Ascendente</option>
+                <option value="desc" {% if orden == 'desc' %}selected{% endif %}>Descendente</option>
+            </select>
+            <br>
+            <input type="hidden" name="pagina" value="{{ pagina }}">
+            <input type="submit" value="Aplicar filtros y orden">
+        </form>
+
+        <ul>
+            {% for reserva in reservas %}
+                <li>
+                    <form action="listado_reservas.php" method="post">
+                        <h3>Cliente que realizó la reserva: <input type="text" name="id_cliente" value="{{ reserva.nombre_usuario }}" readonly></h3>
+                        <p>Habitación de la reserva: <input type="text" name="id_habitacion" value="{{ reserva.numero_habitacion }}" readonly></p>
+                        <p>Número de personas que ocuparán la habitación: <input type="number" name="total_personas" value="{{ reserva.numero_personas }}" readonly></p>
+                        <p>Comentarios: <input type="text" name="comentarios" value="{{ reserva.comentarios }}"></p>
+                        <p>Día de entrada: <input type="date" name="dia_entrada" value="{{ reserva.dia_entrada }}" readonly></p>
+                        <p>Día de salida: <input type="date" name="dia_salida" value="{{ reserva.dia_salida }}" readonly></p>
+                        <p>Estado de la reserva:</p>
+                        <select name="estado" id="estado" disabled>
+                            <option value="Pendiente" {% if reserva.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                            <option value="Confirmada" {% if reserva.estado == 'Confirmada' %}selected{% endif %}>Confirmada</option>
+                        </select>
+                        <input type="hidden" name="estado" value="{{ reserva.estado }}">
+                        <p>Marca de tiempo: <input type="text" name="marca_tiempo" value="{{ reserva.marca_tiempo }}" readonly></p>
+                        <input type="hidden" name="id" value="{{ reserva.id }}">
+                        <input type="submit" name="accion" value="Borrar Reserva">
+                        <input type="submit" name="accion" value="Actualizar">
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <form action="listado_reservas.php" method="post">
+            <input type="hidden" name="comentarios_filtro" value="{{ comentarios_filtro }}">
+            <input type="hidden" name="fecha_inicio_filtro" value="{{ fecha_inicio_filtro }}">
+            <input type="hidden" name="fecha_fin_filtro" value="{{ fecha_fin_filtro }}">
+            <input type="hidden" name="ordenar_por" value="{{ ordenar_por }}">
+            <input type="hidden" name="orden" value="{{ orden }}">
+            <input type="hidden" name="pagina" value="{{ pagina - 1 }}">
+            <input type="submit" value="Anterior" {% if pagina == 1 %}disabled{% endif %}>
+        </form>
+
+        <form action="listado_reservas.php" method="post">
+            <input type="hidden" name="comentarios_filtro" value="{{ comentarios_filtro }}">
+            <input type="hidden" name="fecha_inicio_filtro" value="{{ fecha_inicio_filtro }}">
+            <input type="hidden" name="fecha_fin_filtro" value="{{ fecha_fin_filtro }}">
+            <input type="hidden" name="ordenar_por" value="{{ ordenar_por }}">
+            <input type="hidden" name="orden" value="{{ orden }}">
+            <input type="hidden" name="pagina" value="{{ pagina + 1 }}">
+            <input type="submit" value="Siguiente">
+        </form>
+
+    {% else %}
+        <p>No tienes permiso para ver esta página.</p>
+    {% endif %}
+
+{% endblock %}

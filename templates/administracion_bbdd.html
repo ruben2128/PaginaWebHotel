@@ -1,0 +1,22 @@
+{% extends "padre.html" %}
+
+{% block central %}
+    {% if rol == 'administrador' %}
+        <h1>Administración de la Base de Datos</h1>
+        <form action="administracion_bbdd.php" method="post">
+            <input type="hidden" name="accion" value="backup">
+            <input type="submit" value="Obtener Copia de Seguridad">
+        </form>
+        <form action="administracion_bbdd.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="accion" value="restaurar">
+            <input type="file" name="backup_file">
+            <input type="submit" value="Restaurar BBDD">
+        </form>
+        <form action="administracion_bbdd.php" method="post">
+            <input type="hidden" name="accion" value="reiniciar">
+            <input type="submit" value="Reiniciar BBDD">
+        </form>
+    {% else %}
+        <p>No tienes permiso para ver esta página.</p>
+    {% endif %}
+{% endblock %}

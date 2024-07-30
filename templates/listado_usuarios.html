@@ -1,0 +1,48 @@
+{% extends "padre.html" %}
+
+{% block central %}
+
+    {% if rol == 'recepcionista' or rol == 'administrador'%}
+
+        <h1>Listado de Usuarios</h1>
+
+        <ul>
+            {% if mensaje_exito %}
+                <div class="alert alert-success">
+                    <p>{{ mensaje_exito }}</p>
+                </div>
+            {% endif %}
+            <form action="crear_usuario.php" method="post">
+                <input type="submit" name="accion" value="Añadir Nuevo Usuario">
+            </form>
+            {% for usuario in usuarios %}
+                {% if rol == 'administrador' or (rol == 'recepcionista' and usuario.rol == 'cliente') %}
+                <li>
+                    <form action="listado_usuarios.php" method="post">
+                        <h3>Nombre: <input type="text" name="nombre" value="{{ usuario.nombre }}"></h3>
+                        <p>Apellidos: <input type="text" name="apellidos" value="{{ usuario.apellidos }}"></p>
+                        <p>Email: <input type="email" name="email" value="{{ usuario.email }}"></p>
+                        <p>Tarjeta de crédito: <input type="text" name="tarjeta" value="{{ usuario.tarjeta }}"></p>
+                        <p>DNI: <input type="text" name="dni" value="{{ usuario.dni }}"></p>
+                        <label for="rol">Rol:</label>
+                        <select name="rol" id="rol" {% if rol == 'recepcionista' %}disabled {% endif %} >
+                            <option value="cliente" {% if usuario.rol == 'cliente' %}selected{% endif %}>Cliente</option>
+                            <option value="recepcionista" {% if usuario.rol == 'recepcionista' %}selected{% endif %}>Recepcionista</option>
+                            <option value="administrador" {% if usuario.rol == 'administrador' %}selected{% endif %}>Administrador</option>
+                        </select>
+                        {% if rol == 'recepcionista' %}
+                            <input type="hidden" name="rol" value="{{ usuario.rol }}">
+                        {%endif%}
+                        <input type="hidden" name="id" value="{{ usuario.id }}">
+                        <input type="submit" name="accion" value="Borrar usuario">
+                        <input type="submit" name="accion" value="Actualizar">
+                    </form>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes permiso para ver esta página.</p>
+    {% endif %}
+
+{% endblock %}

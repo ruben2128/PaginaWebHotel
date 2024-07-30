@@ -1,0 +1,14 @@
+{% extends "padre.html" %}
+
+{% block central %}
+        <h1>Listado de Habitaciones</h1>
+        <div class = "contenedor">
+        {% for habitacion in habitaciones %}
+            <div class="habitacion{{habitacion.capacidad}}">
+                <h2>{{ habitacion.capacidad }} personas</h2>
+                <p>Precio por noche: {{ habitacion.precio }}€</p>
+                <p>{{ habitacion.descripcion }}</p>
+            </div>
+        {% endfor %}
+        </div>
+{% endblock %}

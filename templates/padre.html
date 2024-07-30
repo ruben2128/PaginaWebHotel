@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Retiro</title>
+    <link rel="stylesheet" href="styles/estilo.css">
+</head>
+<body>
+
+    <header>
+        <div id="logo"><img src="logo3.png" alt="logo"></div>
+        
+        <nav id="nav-header">
+            <ul>
+                <li><a href="index.php">Inicio</a></li>
+                <li><a href="habitaciones.php">Habitaciones</a></li>
+                <li><a href="servicios.php">Servicios</a></li>
+                {%if login %}
+                    <li> <a href = "perfil.php">Perfil</a></li>
+                    <li> <a href = "crear_reserva.php">Reserva una habitación</a></li>
+                    {%if rol == 'recepcionista' or rol == 'administrador'%}
+                        <li> <a href = "listado_usuarios.php">Gestión Usuarios</a></li>
+                    {%endif%}
+                    {% if rol == 'recepcionista' %}
+                            <li> <a href = "listado_habitaciones.php"> Gestión Habitaciones</a></li>
+                    {%endif %}
+                    {% if rol == 'recepcionista' or rol == 'cliente' %}
+                        <li> <a href = "listado_reservas.php">Gestión Reservas</a></li>
+                    {%endif%}
+                    {% if rol == 'administrador' %}
+                        <li> <a href = "administracion_bbdd.php">Administracion de la base de datos</a></li>
+                        <li> <a href = "log.php">Log del sistema</a></li>
+                    {%endif%}
+                {%endif%}
+            </ul>
+        </nav>
+        
+    </header>
+
+    
+    <main>
+        <aside id="eventos">
+            <h2>EVENTOS</h2>
+            {% if not login and not registro%}
+                <button class = "botonIndex" onclick="toggleForm('loginForm', 'registerForm')">Iniciar sesión</button>
+                <button class = "botonIndex" onclick="toggleForm('registerForm', 'loginForm')">Registrarse</button>
+            {% elseif not login and registro%}
+                <button class = "botonIndex" onclick="toggleForm('loginForm', 'registerForm')">Iniciar sesión</button>
+                <button class = "botonIndex" onclick="toggleForm('registerForm', 'loginForm')">Registrarse</button>
+                <p class="plogin">{{ registro }}</p>
+            {% else %}
+                <button class = "botonIndex" onclick="location.href='logout.php'">Cerrar Sesion</button>
+                <p class="plogin">{{ login }}</p>
+            {% endif %}
+
+            <form id="loginForm" action="login.php" method="post" style="display: none;">
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email"><br>
+                <label for="password">Contraseña:</label><br>
+                <input type="password" id="password" name="password"><br>
+                <input type="submit" value="Iniciar sesión">
+            </form>
+
+            <form id="registerForm" action="registro.php" method="post" style="display: none;">
+                <label for="nombre">Nombre:</label><br>
+                <input type="text" id="nombre" name="nombre" placeholder="Introduce tu nombre" required><br>
+                <label for="apellidos">Apellidos:</label><br>
+                <input type="text" id="apellidos" name="apellidos" placeholder="Introduce tus apellidos" required><br>
+                <label for="dni">DNI:</label><br>
+                <input type="text" id="dni" name="dni" placeholder="Introduce tu DNI" required><br>
+                <label for="email">Email:</label><br>
+                <input type="text" id="email" name="email" placeholder="Introduce tu correo electrónico" required><br>
+                <label for="clave">Contraseña:</label><br>
+                <input type="password" id="clave" name="clave" placeholder="Introduce una contraseña" required><br>
+                <label for="tarjeta">Tarjeta de crédito:</label><br>
+                <input type="number" id="tarjeta" name="tarjeta" placeholder="Introduce una tarjeta de crédito" required><br>
+                <input type="submit" value="Registrarse">
+            </form>
+        </aside>
+
+        <div class="central">
+            {% block central %}
+            
+            {% endblock %}
+        </div>
+
+        
+
+    </main>
+
+    <footer>
+        <div id="pie">
+            <a href="copia_seguridad.sql">Respaldo de la base de datos</a>
+            <a href="documentacion.pdf">Documentación</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleForm(formId, otherFormId) {
+            var form = document.getElementById(formId);
+            var otherForm = document.getElementById(otherFormId);
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                otherForm.style.display = 'none';
+            } else {
+                form.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>

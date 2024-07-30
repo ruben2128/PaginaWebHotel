@@ -1,0 +1,36 @@
+{% extends "padre.html" %}
+
+{% block central %}
+
+   
+    <form action="registrar_reserva.php" method="post">
+        
+        {% if rol == 'recepcionista'%}
+            <label for="id_cliente">Usuario:</label><br>
+            <select name="id_cliente" id="id_cliente">
+                {% for usuario in usuarios %}
+                    <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
+                {% endfor %}
+            </select><br>
+        {% else %}
+            <input type="hidden" name="id_cliente" value="{{ usuario.id }}">
+        {% endif %}
+
+        <label for="numero_personas">Total de personas de la reserva:</label><br>
+        <input type="number" id="numero_personas" name="numero_personas" required><br>
+        <label for="comentarios">Comentarios:</label><br>
+        <input type="textarea" id="comentarios" name="comentarios" required><br>
+        <label for="dia_entrada">Fecha de entrada:</label><br>
+        <input type="date" id="dia_entrada" name="dia_entrada" required><br>
+        <label for="dia_salida">Fecha de salida:</label><br>
+        <input type="date" id="dia_salida" name="dia_salida" required><br>
+        
+        <input type="submit" value="Crear reserva">
+    </form>
+
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+
+    
+{% endblock %}

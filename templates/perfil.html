@@ -1,0 +1,19 @@
+{% extends "padre.html" %}
+
+{% block central %}
+    <h2>Perfil</h2>
+    <form id="perfilForm" action="modificar_perfil.php" method="post">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" value="{{ email }}"><br>
+        <label for="clave">Clave:</label><br>
+        <input type="password" id="clave" name="clave"><br>
+        <label for="tarjeta">Tarjeta:</label><br>
+        <input type="number" id="tarjeta" name="tarjeta" value="{{ tarjeta }}"><br>
+        <input type="submit" value="Modificar perfil">
+    </form>
+
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+    
+{% endblock %}

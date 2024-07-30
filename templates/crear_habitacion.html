@@ -1,0 +1,23 @@
+{% extends "padre.html" %}
+
+{% block central %}
+
+   
+    <form action="registrar_habitacion.php" method="post" enctype="multipart/form-data">
+        <label for="numero">Número de habitación:</label><br>
+        <input type="text" id="numero" name="numero" required><br>
+        <label for="capacidad">Capacidad de personas:</label><br>
+        <input type="number" id="capacidad" name="capacidad" required><br>
+        <label for="precio">Precio por noche:</label><br>
+        <input type="number" id="precio" name="precio" required><br>
+        <label for="descripcion">Descripción:</label><br>
+        <input type="text" id="descripcion" name="descripcion" required><br>
+        <input type="submit" value="Registrarse">
+    </form>
+
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+
+    
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "padre.html" %}
+
+{% block central %}
+
+    {% if rol == 'recepcionista'%}
+
+        <h1>Listado de Habitaciones</h1>
+
+        <ul>
+            {% if mensaje_exito %}
+                <div class="alert alert-success">
+                    <p>{{ mensaje_exito }}</p>
+                </div>
+            {% endif %}
+
+            <form action="crear_habitacion.php" method="post">
+                <input type="submit" name="accion" value="Añadir Nueva Habitación">
+            </form>
+
+            {% for habitacion in habitaciones %}
+                <li>
+                    <form action="listado_habitaciones.php" method="post">
+                        <h3>Número de habitación: <input type="text" name="numero" value="{{ habitacion.numero }}"></h3>
+                        <p>Capacidad: <input type="number" name="capacidad" value="{{ habitacion.capacidad }}"></p>
+                        <p>Precio: <input type="number" name="precio" value="{{ habitacion.precio }}"></p>
+                        <p>Descripción: <input type="text" name="descripcion" value="{{ habitacion.descripcion }}"></p>
+                        <input type="hidden" name="id" value="{{ habitacion.id }}">
+                        <input type="submit" name="accion" value="Borrar habitacion">
+                        <input type="submit" name="accion" value="Actualizar">
+                    </form>
+                </li>
+            {% endfor %}
+            
+        </ul>
+    {% else %}
+        <p>No tienes permiso para ver esta página.</p>
+    {% endif %}
+
+{% endblock %}

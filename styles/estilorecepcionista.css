@@ -1,0 +1,116 @@
+body {
+    background-color: rgb(226, 215, 193);
+    color: rgb(96, 102, 74);
+}
+
+header{
+    display: block;
+}
+
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#logo img{
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
+
+#nav-header{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+ul {
+    text-align: center;
+    padding: 0;
+    font-size: 30px;
+}
+
+li {
+    display: inline;
+    margin: 10px;
+    padding: 20px;
+}
+
+a{
+    color: rgb(96, 102, 74);
+    text-decoration: none;
+}
+
+a:hover{
+    color: rgb(127, 150, 165);
+}
+
+h1, h2 {
+    font-family: Georgia;
+    font-size: 35px;
+}
+
+h2 {
+    text-align: center;
+    margin: 2em;
+}
+
+.reservas {
+    display: flex;
+    flex-direction: column;
+}
+
+.habitacion{
+    display: flex;
+    font-size: larger;
+}
+
+.dia, .numero, .capacidad {
+    padding: 10px;
+    text-align: center;
+    width: 100px;
+}
+
+footer {
+    text-align: center;
+    background-color: rgb(168, 164, 140);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 40px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        background-color: rgb(96, 102, 74);
+        color: rgb(226, 215, 193);
+    }
+
+    li a {
+        color:white;
+    }
+
+    #nav-header ul {
+        display: block;
+    }
+    
+}
+
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+    body {
+        background-color: rgb(127, 150, 165);
+        color: rgb(96, 102, 74);
+    }
+
+    #nav-header ul {
+        flex-direction: row;
+    }
+
+}
